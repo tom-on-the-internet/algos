@@ -3,25 +3,30 @@ function quickSort(arr, first = 0, last = arr.length - 1) {
     return arr
   }
 
-  let pivotIdx = last
-  let l = first
+  let r = first
+  let l = r - 1
   let temp
 
-  while (l < pivotIdx) {
-    if (arr[l] <= arr[pivotIdx]) {
-      l++
+  while (r < last) {
+    if (arr[r] > arr[last]) {
+      r++
       continue
     }
+    l++
 
     temp = arr[l]
-    arr[l] = arr[pivotIdx - 1]
-    arr[pivotIdx - 1] = arr[pivotIdx]
-    arr[pivotIdx] = temp
-    pivotIdx--
+    arr[l] = arr[r]
+    arr[r] = temp
+    r++
   }
 
-  quickSort(arr, first, pivotIdx - 1)
-  quickSort(arr, pivotIdx + 1, last)
+  l++
+  temp = arr[l]
+  arr[l] = arr[last]
+  arr[last] = temp
+
+  quickSort(arr, first, l - 1)
+  quickSort(arr, l + 1, last)
 
   return arr
 }
